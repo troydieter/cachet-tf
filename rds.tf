@@ -39,6 +39,8 @@ module "db" {
   performance_insights_retention_period = 7
   create_monitoring_role                = true
   monitoring_interval                   = 60
+  monitoring_role_name                  = "cachet-rds-mon-${random_id.rando.hex}"
+  create_random_password                = true
 
   parameters = [
     {
