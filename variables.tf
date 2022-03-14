@@ -14,3 +14,9 @@ variable "environment" {
   type        = string
   default     = "dev"
 }
+
+variable "application" {
+  description = "Cachet"
+  type = string
+  default = "cachet"
+}

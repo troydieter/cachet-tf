@@ -7,7 +7,7 @@ module "db" {
   source  = "terraform-aws-modules/rds/aws"
   version = "4.2.0"
 
-  identifier = "cachet-rds-${random_id.rando.hex}"
+  identifier = "${var.application}-rds-${random_id.rando.hex}"
 
   engine               = "mysql"
   engine_version       = "8.0.28"
@@ -18,8 +18,8 @@ module "db" {
   allocated_storage     = 20
   max_allocated_storage = 100
 
-  db_name  = "cachet-${random_id.rando.hex}"
-  username = "cachet_dbuser"
+  db_name  = var.application
+  username = "${var.application}_dbuser"
   port     = 3306
 
   multi_az               = true
@@ -30,6 +30,7 @@ module "db" {
   backup_window                   = "03:00-06:00"
   enabled_cloudwatch_logs_exports = ["general"]
   create_cloudwatch_log_group     = true
+  db_subnet_group_name = module.vpc.database_subnet_group_name
 
   backup_retention_period = 7
   skip_final_snapshot     = true
@@ -39,7 +40,7 @@ module "db" {
   performance_insights_retention_period = 7
   create_monitoring_role                = true
   monitoring_interval                   = 60
-  monitoring_role_name                  = "cachet-rds-mon-${random_id.rando.hex}"
+  monitoring_role_name                  = "${var.application}-rds-mon-${random_id.rando.hex}"
   create_random_password                = true
 
   parameters = [

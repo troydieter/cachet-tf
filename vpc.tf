@@ -6,7 +6,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 3.0"
 
-  name = "cachet-vpc-${random_id.rando.hex}"
+  name = "${var.application}-vpc-${random_id.rando.hex}"
   cidr = "10.99.0.0/18"
 
   azs              = ["${var.aws_region}a", "${var.aws_region}b", "${var.aws_region}c"]
@@ -23,7 +23,7 @@ module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.0"
 
-  name        = "cachet-sg-rds-${random_id.rando.hex}"
+  name        = "${var.application}-sg-rds-${random_id.rando.hex}"
   description = "SG for RDS ${random_id.rando.hex}"
   vpc_id      = module.vpc.vpc_id
 
