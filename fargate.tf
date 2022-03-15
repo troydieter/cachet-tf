@@ -4,7 +4,7 @@
 
 module "fargate_alb" {
   source  = "telia-oss/loadbalancer/aws"
-  version = "3.0.0"
+  version = "4.0.0"
 
   name_prefix = "${var.application}-${random_id.rando.hex}"
   type        = "application"
