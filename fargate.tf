@@ -20,7 +20,7 @@ module "acm" {
 }
 module "fargate" {
   source              = "cn-terraform/ecs-fargate/aws"
-  version             = "2.0.33"
+  version             = "2.0.34"
   name_prefix         = var.application
   vpc_id              = module.vpc.vpc_id
   container_image     = "cachethq/docker"
