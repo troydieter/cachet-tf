@@ -17,6 +17,16 @@ variable "environment" {
 
 variable "application" {
   description = "Cachet"
-  type = string
-  default = "cachet"
+  type        = string
+  default     = "cachet"
+}
+
+variable "domain_name" {
+  description = "Top Level Domain Name to be used"
+  type        = string
+}
+
+variable "zone_id" {
+  description = "Route53 Zone ID"
+  type        = string
 }

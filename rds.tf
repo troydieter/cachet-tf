@@ -30,7 +30,7 @@ module "db" {
   backup_window                   = "03:00-06:00"
   enabled_cloudwatch_logs_exports = ["general"]
   create_cloudwatch_log_group     = true
-  db_subnet_group_name = module.vpc.database_subnet_group_name
+  db_subnet_group_name            = module.vpc.database_subnet_group_name
 
   backup_retention_period = 7
   skip_final_snapshot     = true

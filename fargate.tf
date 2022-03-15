@@ -2,17 +2,46 @@
 # Fargate Resources
 ###############
 
+module "acm" {
+  source  = "terraform-aws-modules/acm/aws"
+  version = "~> 3.0"
+
+  domain_name = var.domain_name
+  zone_id     = var.zone_id
+
+  subject_alternative_names = [
+    "*.${var.domain_name}",
+    "www.${var.domain_name}",
+  ]
+
+  wait_for_validation = true
+
+  tags = local.common-tags
+}
 module "fargate" {
-  source  = "cn-terraform/ecs-fargate/aws"
-  version = "2.0.33"
-  name_prefix         = "${var.application}"
+  source              = "cn-terraform/ecs-fargate/aws"
+  version             = "2.0.33"
+  name_prefix         = var.application
   vpc_id              = module.vpc.vpc_id
   container_image     = "ubuntu"
-  container_name      = "test"
+  container_name      = "cachet-${random_id.rando.hex}"
   public_subnets_ids  = module.vpc.public_subnets
   private_subnets_ids = module.vpc.intra_subnets
-  lb_internal = false
-  
+  lb_internal         = false
+  port_mappings = [
+    {
+      "containerPort" : 443,
+      "hostPort" : 80,
+      "protocol" : "tcp"
+    }
+  ]
+  lb_https_ports = {
+    "default_http" : {
+      "listener_port" : 443,
+      "target_group_port" : 443
+    }
+  }
+  default_certificate_arn = module.acm.acm_certificate_arn
 
   tags = local.common-tags
 }
