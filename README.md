@@ -1,2 +1,2 @@
-# cachet-tf
-Cachet deployed on AWS via Terraform
+# eggdrop
+Eggdrop deployed on AWS w\ dedicated VPC

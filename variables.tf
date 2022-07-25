@@ -1,32 +1,29 @@
-variable "aws-profile" {
-  description = "AWS profile for provisioning the resources"
+variable "vpc" {
   type        = string
+  description = "VPC to deploy to"
+  default     = "vpc-0a2a83d4e068c74c6"
 }
 
-variable "aws_region" {
-  description = "AWS Region- Defaulted to us-east-1"
-  default     = "us-east-1"
+variable "home_ip" {
   type        = string
+  description = "My Home IP"
+  default     = "98.243.123.20/32"
+}
+
+variable "ami" {
+  type        = string
+  description = "AMI to be used"
+  default     = "ami-00ddb0e5626798373"
 }
 
 variable "environment" {
-  description = "Environment"
   type        = string
+  description = "environment"
   default     = "dev"
 }
 
-variable "application" {
-  description = "Cachet"
-  type        = string
-  default     = "cachet"
-}
-
-variable "domain_name" {
-  description = "Top Level Domain Name to be used"
-  type        = string
-}
-
-variable "zone_id" {
-  description = "Route53 Zone ID"
-  type        = string
+variable "instance_size" {
+  type = string
+  description = "The instance size"
+  default = "t3a.medium"
 }
